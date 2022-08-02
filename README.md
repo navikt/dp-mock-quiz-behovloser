@@ -1,4 +1,4 @@
-# Dagpenger-SERVICENAME
+# dp-mock-quiz-behovloser
 
 ## Komme i gang
 
