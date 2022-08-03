@@ -10,4 +10,12 @@ internal class ApplicationBuilder(config: Map<String, String>) : RapidsConnectio
     ).build()
 
     private val behovmottak = Behovmottak(rapidsConnection, BehovsvarFactory)
+
+    init {
+        rapidsConnection.register(this)
+    }
+
+    fun start() {
+        rapidsConnection.start()
+    }
 }

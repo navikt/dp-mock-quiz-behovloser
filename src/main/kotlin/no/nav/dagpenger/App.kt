@@ -1,5 +1,3 @@
 package no.nav.dagpenger
 
-fun main() {
-    println("Hello world!")
-}
+fun main() = ApplicationBuilder(Configuration.config).start()
