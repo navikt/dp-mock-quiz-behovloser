@@ -13,12 +13,12 @@ repositories {
 }
 
 application {
-    mainClass.set("no.nav.dagpenger.ApplicationKt")
+    mainClass.set("no.nav.dagpenger.AppKt")
 }
 
 kotlin {
     jvmToolchain {
-        (this as JavaToolchainSpec).languageVersion.set(JavaLanguageVersion.of(17))
+        this.languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
@@ -29,6 +29,7 @@ dependencies {
     implementation(Kotlin.Logging.kotlinLogging)
 
     testImplementation(kotlin("test"))
+    testImplementation(Mockk.mockk)
 }
 
 tasks.withType<Test> {
