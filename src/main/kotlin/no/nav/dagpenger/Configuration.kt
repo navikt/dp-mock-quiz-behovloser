@@ -14,7 +14,7 @@ internal object Configuration {
             "RAPID_APP_NAME" to "dp-mock-quiz-behovloser",
             "KAFKA_CONSUMER_GROUP_ID" to "dp-mock-quiz-behovloser-v1",
             "KAFKA_RAPID_TOPIC" to "teamdagpenger.rapid.v1",
-            "KAFKA_RESET_POLICY" to "latest",
+            "KAFKA_RESET_POLICY" to "latest"
         )
     )
     val properties = ConfigurationProperties.systemProperties() overriding EnvironmentVariables() overriding defaultProperties

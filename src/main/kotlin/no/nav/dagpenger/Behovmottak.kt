@@ -27,8 +27,9 @@ class Behovmottak(
         logger.info("Behov: $behov")
 
         when (behov) {
-            "NySøknad" -> behovsvarFactory.createNySøknadBehovsvar()
-            else -> logger.info("Klarte ikke å behandle behovet $behov")
+            "NySøknad" -> behovsvarFactory.nySøknadBehovsvar()
+            "Barn" -> behovsvarFactory.registerbarnBehovsvar()
+            else -> logger.info("Ikke støtte for følgende behov: $behov. Full JSON: ${packet.toJson()}")
         }
     }
 }

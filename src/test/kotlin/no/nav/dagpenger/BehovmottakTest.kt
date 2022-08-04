@@ -13,16 +13,48 @@ internal class BehovmottakTest {
     private val behovsvarFactory = mockk<BehovsvarFactory>(relaxed = true)
 
     @Test
-    fun `Skal besvare NAV-behov fra Quiz med et mock-svar`() {
-        val mottak = Behovmottak(testRapid, behovsvarFactory)
+    fun `Fanger opp og besvarer NySøknad behov fra Quiz med et mock-svar`() {
+        Behovmottak(testRapid, behovsvarFactory)
 
         testRapid.sendTestMessage(nySøknadBehovUtenLøsning(UUID.randomUUID().toString()))
 
-        verify { behovsvarFactory.createNySøknadBehovsvar() }
+        verify { behovsvarFactory.nySøknadBehovsvar() }
+        confirmVerified(behovsvarFactory)
+    }
+
+    @Test
+    fun `Fanger opp og besvarer NAV-behov om registerbarn fra Quiz`() {
+        Behovmottak(testRapid, behovsvarFactory)
+
+        testRapid.sendTestMessage(registerbarnBehov())
+
+        verify { behovsvarFactory.registerbarnBehovsvar() }
         confirmVerified(behovsvarFactory)
     }
 
     companion object {
+
+        // language=JSON
+        fun registerbarnBehov() = """ 
+        {
+          "@event_name": "behov",
+          "@behovId": "84a03b5b-7f5c-4153-b4dd-57df041aa30d",
+          "@behov": [
+            "Barn"
+          ],
+          "ident": "12345678912",
+          "søknad_uuid": "${UUID.randomUUID()}",
+          "@id": "cf3f3303-121d-4d6d-be0b-5b2808679a79",
+          "@opprettet": "2022-03-30T12:19:08.418821",
+          "system_read_count": 0,
+          "system_participating_services": [
+            {
+              "id": "cf3f3303-121d-4d6d-be0b-5b2808679a79",
+              "time": "2022-03-30T12:19:08.418821"
+            }
+          ]
+        }
+        """.trimMargin()
 
         // language=JSON
         fun nySøknadBehovsløsning(søknadUuid: String) = """
@@ -45,7 +77,8 @@ internal class BehovmottakTest {
             }
           ],
           "@løsning": {"NySøknad": "$søknadUuid"}
-        }""".trimMargin()
+        }
+        """.trimMargin()
 
         // language=JSON
         fun nySøknadBehovUtenLøsning(søknadUuid: String) = """
@@ -67,6 +100,7 @@ internal class BehovmottakTest {
               "time": "2022-03-30T12:19:08.418821"
             }
           ]
-        }""".trimMargin()
+        }
+        """.trimMargin()
     }
 }

@@ -6,7 +6,7 @@ object BehovsvarFactory {
 
     private val logger = KotlinLogging.logger {}
 
-    fun createNySøknadBehovsvar() {
-        logger.info("Lag mock svar for dette!")
-    }
+    fun nySøknadBehovsvar() = logger.info("Lag svar for ny søknad")
+
+    fun registerbarnBehovsvar() = logger.info("Lag svar for registerbarn")
 }
