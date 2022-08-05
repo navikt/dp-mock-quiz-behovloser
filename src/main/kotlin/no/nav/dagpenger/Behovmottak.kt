@@ -7,7 +7,7 @@ import no.nav.helse.rapids_rivers.RapidsConnection
 import no.nav.helse.rapids_rivers.River
 
 class Behovmottak(
-    rapidsConnection: RapidsConnection,
+    private val rapidsConnection: RapidsConnection,
     private val behovsvarFactory: BehovsvarFactory
 ) : River.PacketListener {
 
@@ -25,10 +25,9 @@ class Behovmottak(
     override fun onPacket(packet: JsonMessage, context: MessageContext) {
         val behov = packet["@behov"].single().asText()
         logger.info("Behov: $behov")
-
         when (behov) {
             "NySøknad" -> behovsvarFactory.nySøknadBehovsvar()
-            "Barn" -> behovsvarFactory.registerbarnBehovsvar()
+            "Barn" -> rapidsConnection.publish(behovsvarFactory.registerbarnBehovsvar())
             else -> logger.info("Ikke støtte for følgende behov: $behov. Full JSON: ${packet.toJson()}")
         }
     }
