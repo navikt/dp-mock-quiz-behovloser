@@ -9,10 +9,9 @@ internal class ApplicationBuilder(config: Map<String, String>) : RapidsConnectio
         RapidApplication.RapidApplicationConfig.fromEnv(config)
     ).build()
 
-    private val behovmottak = Behovmottak(rapidsConnection, BehovsvarFactory)
-
     init {
         rapidsConnection.register(this)
+        Behovmottak(rapidsConnection)
     }
 
     fun start() {

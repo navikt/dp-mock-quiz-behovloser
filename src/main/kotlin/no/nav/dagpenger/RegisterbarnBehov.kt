@@ -1,30 +1,13 @@
 package no.nav.dagpenger
 
-import no.nav.helse.rapids_rivers.testsupport.TestRapid
-import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
-
-internal class BehovmottakTest {
-
-    private val testRapid = TestRapid()
-
-    @Test
-    fun `Fanger opp og besvarer NAV-behov om registerbarn fra Quiz`() {
-        Behovmottak(testRapid)
-
-        testRapid.sendTestMessage(registerbarnBehov())
-
-        assertEquals(1, testRapid.inspektør.size)
-    }
-}
-
-// language=JSON
-fun registerbarnBehov() = """
+object RegisterbarnBehov {
+    // language=JSON
+    fun svar(søknadUuid: String) = """
     {
       "@event_name": "faktum_svar",
       "@opprettet": "2021-11-18T11:04:32.867824",
       "@id": "930e2beb-d394-4024-b713-dbeb6ad3d4bf",
-      "søknad_uuid": "41621ac0-f5ee-4cce-b1f5-88a79f25f1a5",
+      "søknad_uuid": "$søknadUuid",
       "identer": [
         {
           "id": "32542134",
@@ -63,6 +46,25 @@ fun registerbarnBehov() = """
             }
           ]
         }
-      ]
+      ],
+      "system_read_count": 0,
+      "@løsning": {
+        "Barn": [
+          {
+            "faktum.barn-etternavn": "Testen",
+            "faktum.barn-foedselsdato": "2022-08-04",
+            "faktum.barn-statsborgerskap": "NOR",
+            "faktum.barn-fornavn-mellomnavn": "Test"
+          },
+          {
+            "faktum.barn-etternavn": "Testen",
+            "faktum.barn-foedselsdato": "2022-08-04",
+            "faktum.barn-statsborgerskap": "NOR",
+            "faktum.barn-fornavn-mellomnavn": "Test Super"
+          }
+        ]
+      }
     }
 """.trimIndent()
+
+}
