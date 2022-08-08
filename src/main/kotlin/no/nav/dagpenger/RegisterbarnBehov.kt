@@ -48,7 +48,7 @@ object RegisterbarnBehov {
         }
       ],
       "system_read_count": 0,
-      "@løsning": {
+      "@løsning": { 
         "Barn": [
           {
             "faktum.barn-etternavn": "Testen",
@@ -65,6 +65,5 @@ object RegisterbarnBehov {
         ]
       }
     }
-""".trimIndent()
-
+    """.trimIndent()
 }

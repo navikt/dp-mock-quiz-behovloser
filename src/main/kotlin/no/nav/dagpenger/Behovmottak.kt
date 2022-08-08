@@ -29,7 +29,7 @@ class Behovmottak(
         when (behov) {
             "Barn" -> rapidsConnection.publish(
                 registerbarnBehovsvar(søknadUuid)
-            ).also { logger.info { "Besvarte $behov behov" } }
+            ).also { logger.info { "Besvarte $behov behov for søknad $søknadUuid" } }
             else -> logger.info("Ikke støtte for følgende behov: $behov. Full JSON: ${packet.toJson()}")
         }
     }
