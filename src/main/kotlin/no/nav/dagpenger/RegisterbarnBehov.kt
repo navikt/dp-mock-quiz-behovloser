@@ -1,5 +1,7 @@
 package no.nav.dagpenger
 
+import java.util.UUID
+
 object RegisterbarnBehov {
     // language=JSON
     fun svar(søknadUuid: String) = """
@@ -7,6 +9,7 @@ object RegisterbarnBehov {
       "@event_name": "faktum_svar",
       "@opprettet": "2021-11-18T11:04:32.867824",
       "@id": "930e2beb-d394-4024-b713-dbeb6ad3d4bf",
+      "@behovId": "${UUID.randomUUID()}",
       "søknad_uuid": "$søknadUuid",
       "identer": [
         {
