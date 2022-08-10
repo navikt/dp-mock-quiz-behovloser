@@ -23,13 +23,14 @@ class Behovmottak(
 
     override fun onPacket(packet: JsonMessage, context: MessageContext) {
         val behov = packet["@behov"].single().asText()
-        val søknadUuid = packet["søknad_uuid"].asText()
         logger.info("Behov mottatt: $behov")
-
         when (behov) {
-            "Barn" -> rapidsConnection.publish(
-                registerbarnBehovsvar(søknadUuid)
-            ).also { logger.info { "Besvarte $behov behov for søknad $søknadUuid" } }
+            "Barn" -> {
+                packet["@løsning"] = registerbarnBehovsvar()
+                rapidsConnection.publish(packet.toJson())
+                logger.info { "Sendte ut pakke: " + packet.toJson() }
+            }
+
             else -> logger.info("Ikke støtte for følgende behov: $behov. Full JSON: ${packet.toJson()}")
         }
     }
