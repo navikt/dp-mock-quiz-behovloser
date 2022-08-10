@@ -3,6 +3,7 @@ package no.nav.dagpenger
 import java.util.UUID
 
 object RegisterbarnBehov {
+    /* NB: id på fakta må korrespondere til id på fakta i dp-quiz. Ellers vil FaktumSvarService i dp-quiz avslå svaret*/
     // language=JSON
     fun svar(søknadUuid: String) = """
     {
@@ -45,7 +46,7 @@ object RegisterbarnBehov {
             {
               "id": "1012",
               "navn": "faktum.barn-statsborgerskap",
-              "type": "localdate"
+              "type": "land"
             }
           ]
         }
