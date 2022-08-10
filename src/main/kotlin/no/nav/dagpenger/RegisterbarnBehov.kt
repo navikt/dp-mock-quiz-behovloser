@@ -23,27 +23,27 @@ object RegisterbarnBehov {
       ],
       "fakta": [
         {
-          "id": "10",
+          "id": "1008",
           "behov": "Barn",
           "type": "generator",
           "templates": [
             {
-              "id": "11",
+              "id": "1009",
               "navn": "faktum.barn-fornavn-mellomnavn",
               "type": "tekst"
             },
             {
-              "id": "11",
+              "id": "1010",
               "navn": "faktum.barn-etternavn",
               "type": "tekst"
             },
             {
-              "id": "11",
+              "id": "1011",
               "navn": "faktum.barn-foedselsdato",
               "type": "localdate"
             },
             {
-              "id": "11",
+              "id": "1012",
               "navn": "faktum.barn-statsborgerskap",
               "type": "localdate"
             }
