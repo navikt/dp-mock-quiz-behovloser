@@ -16,7 +16,9 @@ class Behovmottak(
 
     init {
         River(rapidsConnection).apply {
-            validate { it.requireKey("@behov", "søknad_uuid") }
+            validate { it.requireKey("@behov") }
+            validate { it.rejectKey("@løsning") }
+            validate { it.interestedIn("søknad_uuid") }
         }.register(this)
     }
 

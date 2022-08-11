@@ -21,7 +21,27 @@ internal class BehovmottakTest {
         assertEquals(søknadUuid, registerbarnBehovSvar["søknad_uuid"].asText())
         assertNotNull(registerbarnBehovSvar["@løsning"]["Barn"])
     }
+
+    @Test
+    fun `Fanger ikke opp løste behov`() {
+        Behovmottak(testRapid)
+        val søknadUuid = "41621ac0-f5ee-4cce-b1f5-88a79f25f1a5"
+
+        testRapid.sendTestMessage(behovMedLøsning(søknadUuid))
+
+        assertEquals(0, testRapid.inspektør.size)
+    }
 }
+
+//language=JSON
+fun behovMedLøsning(søknadUuid: String) = """
+    {
+      "søknad_uuid": "$søknadUuid",
+      "@behov": [
+        "Barn"
+      ],
+      "@løsning": "Mockers"
+""".trimIndent()
 
 // language=JSON
 fun registerbarnBehov(søknadUuid: String) = """
