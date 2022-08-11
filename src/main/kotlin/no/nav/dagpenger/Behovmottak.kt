@@ -1,7 +1,6 @@
 package no.nav.dagpenger
 
 import mu.KotlinLogging
-import no.nav.dagpenger.BehovsvarFactory.registerbarnBehovsvar
 import no.nav.helse.rapids_rivers.JsonMessage
 import no.nav.helse.rapids_rivers.MessageContext
 import no.nav.helse.rapids_rivers.RapidsConnection
@@ -25,13 +24,14 @@ class Behovmottak(
         val behov = packet["@behov"].single().asText()
         logger.info("Behov mottatt: $behov")
         when (behov) {
-            "Barn" -> {
-                packet["@løsning"] = registerbarnBehovsvar()
-                rapidsConnection.publish(packet.toJson())
-                logger.info { "Sendte ut pakke: " + packet.toJson() }
-            }
-
+            "Barn" -> publiserLøsningForRegisterbarn(packet)
             else -> logger.info("Ikke støtte for følgende behov: $behov. Full JSON: ${packet.toJson()}")
         }
+    }
+
+    private fun publiserLøsningForRegisterbarn(packet: JsonMessage) {
+        packet["@løsning"] = RegisterbarnBehov.svar()
+        rapidsConnection.publish(packet.toJson())
+        logger.info { "Sendte ut pakke: " + packet.toJson() }
     }
 }
